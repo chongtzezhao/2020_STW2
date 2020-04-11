@@ -13,7 +13,7 @@
     <div class="hero-body">
         <div class="container is-fluid has-text-centered">
             <div class="review">
-                <h1 class="title is-2">
+                <h1 class="title is-3">
                     {% if score %}
                     Correct!
                     {% else %}
@@ -25,19 +25,7 @@
             <div class="question">
                 <h1 class="question-text">{{questions[i].QuestionText}}</h1>
                 <br>
-                <div class="control">
-                    <label class="radio option">
-                        {{questions[i].Option1}}
-                        {% if questions[i].Answer == 1 %}
-                        <input type="radio" checked disabled>
-                        {% elif results[questions[i].QuestionID] == False %}
-                        <input type="radio" class="wrong" checked disabled>
-                        {% else %}
-                        <input type="radio" disabled>
-                        {% endif %}
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
+                {% if session['flipped'] %}
                 <div class="control">
                     <label class="radio option">
                         {{questions[i].Option2}}
@@ -51,6 +39,35 @@
                         <span class="checkmark"></span>
                     </label>
                 </div>
+                {% endif %}
+                <div class="control">
+                    <label class="radio option">
+                        {{questions[i].Option1}}
+                        {% if questions[i].Answer == 1 %}
+                        <input type="radio" checked disabled>
+                        {% elif results[questions[i].QuestionID] == False %}
+                        <input type="radio" class="wrong" checked disabled>
+                        {% else %}
+                        <input type="radio" disabled>
+                        {% endif %}
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                {% if not session['flipped'] %}
+                <div class="control">
+                    <label class="radio option">
+                        {{questions[i].Option2}}
+                        {% if questions[i].Answer == 2 %}
+                        <input type="radio" checked disabled>
+                        {% elif results[questions[i].QuestionID] == False %}
+                        <input type="radio" class="wrong" checked disabled>
+                        {% else %}
+                        <input type="radio" disabled>
+                        {% endif %}
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                {% endif %}
             </div>
             
             {% endfor %}
@@ -60,7 +77,7 @@
                 </a>
             </div>
             <div class="field has-text-centered">
-                <a class="button is-primary is-large is-outlined" href="/leaderboard">
+                <a class="button is-primary is-large is-outlined is-rounded" href="/leaderboard">
                     View your ranking here
                 </a>
             </div>

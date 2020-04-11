@@ -3,7 +3,7 @@ from app import db, Question, CountAttempt, Attempt
 def get_questions():
     try:
         return Question.query.all()
-    except OperationalError:
+    except:
         return Question.query.all()
 
 
@@ -27,18 +27,29 @@ def get_next_question(userid):
             db.session.add(new_record)
     db.session.commit()
 
-    record = CountAttempt.query.filter_by(UserID=userid).order_by('NumAttempts').first()
-    if record:
-        next_question = Question.query.filter_by(QuestionID=record.QuestionID).first()
+    record = CountAttempt.query.filter_by(
+        UserID=userid, Correct=False).order_by('NumAttempts').first()
 
-        return next_question
-    return None
+    if record:  # user has not gotten question correct
+        next_question = Question.query.filter_by(
+            QuestionID=record.QuestionID).first()
+
+    else:  # user has gotten all questions correct
+        record = CountAttempt.query.filter_by(
+            UserID=userid).order_by('PracticeAttempts').first()
+        if record:
+            next_question = Question.query.filter_by(
+                QuestionID=record.QuestionID).first()
+        else:
+            next_question = None
+
+    return next_question
 
 
 def check_one_answer(questionid, user_answer):
     try:
         question = Question.query.filter_by(QuestionID=questionid).first()
-    except OperationalError:
+    except:
         question = Question.query.filter_by(QuestionID=questionid).first()
     finally:
         return question.Answer==int(user_answer), question
@@ -49,13 +60,15 @@ def update_attempts(userid, questionid, user_answer):
         count_attempt_record = CountAttempt.query.filter_by(
             UserID=userid, QuestionID=questionid
             ).first()
-    except OperationalError:
+    except:
         count_attempt_record = CountAttempt.query.filter_by(
             UserID=userid, QuestionID=questionid
         ).first()
     if count_attempt_record:
-        if count_attempt_record.Correct:
-            count_attempt_record.PracticeAttempts+=1
+        if count_attempt_record.Correct:  # user got correct before
+            correct_again = check_one_answer(questionid, user_answer)
+            if correct_again:
+                count_attempt_record.PracticeAttempts+=1
         else:
             count_attempt_record.NumAttempts += 1
             attempt_record = Attempt(userid, questionid, user_answer)

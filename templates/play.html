@@ -23,13 +23,23 @@
                         <div class="question">
                             <h1 class="question-text">{{questions[i].QuestionText}}</h1>
                             <br>
+                            {% if session['flipped'] %}
                             <div class="control">
                                 <label class="radio option">
-                                    {{questions[i].Option1}}
-                                    <input type="radio" name="answer_{{questions[i].QuestionID}}" value="1" required>
+                                    {{questions[i].Option2}}
+                                    <input type="radio" name="answer_{{questions[i].QuestionID}}" value="2" required>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
+                            {% endif %}
+                            <div class="control">
+                                <label class="radio option">
+                                    {{questions[i].Option1}}
+                                    <input type="radio" name="answer_{{questions[i].QuestionID}}" value="1">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            {% if not session['flipped'] %}
                             <div class="control">
                                 <label class="radio option">
                                     {{questions[i].Option2}}
@@ -37,6 +47,7 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
+                            {% endif %}
                         </div>
                         
                         {% endfor %}

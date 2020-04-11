@@ -37,7 +37,7 @@ from hash_algo import hash_password, verify_password
 def check_user_password(userid, password):
     try:
         user = User.query.filter_by(UserID=userid).first()
-    except OperationalError:
+    except:
         user = User.query.filter_by(UserID=userid).first()
     if user:
         if verify_password(user.Password, password):
@@ -51,7 +51,7 @@ def check_user_password(userid, password):
 def get_name(userid):
     try:
         user = User.query.filter_by(UserID=userid).first()
-    except OperationalError:
+    except:
         user = User.query.filter_by(UserID=userid).first()
     if user:
         return user.Name
@@ -64,12 +64,12 @@ def create_user(userid, user_name, password, email):
     new_user = User(userid, user_name, hashed_password, email)
     try:
         db.session.add(new_user)
-    except OperationalError:
+    except:
         db.session.add(new_user)
     
     try:
         db.session.commit()
-    except OperationalError:
+    except:
         db.session.commit()
 
 

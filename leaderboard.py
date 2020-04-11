@@ -3,7 +3,7 @@ from app import db, User, Question, Attempt, CountAttempt
 def get_rankings():
     try:
         questions = Question.query.all()
-    except OperationalError:
+    except:
         questions = Question.query.all()
     users = User.query.all()
     rankings = []
@@ -18,10 +18,8 @@ def get_rankings():
                 user_total_correct += record.Correct
                 user_total_attempts += record.NumAttempts
                 user_practice += record.PracticeAttempts 
-                user_total_score += record.Correct * 9 - record.NumAttempts
+                user_total_score += record.Correct * 10 - record.NumAttempts
         user_total_score += user_practice*0.5
-        else:
-            user_total_score = 0
         rankings.append([user_total_score, user.Name, user_total_correct,
                         user_total_attempts, user_practice])
     rankings.sort(reverse=True)

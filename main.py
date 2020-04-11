@@ -1,5 +1,6 @@
 from flask import redirect, render_template, request, session, abort, url_for
 import os
+from random import randint
 
 # user-defined imports
 from app import app, SignUpForm, mail
@@ -51,7 +52,8 @@ def play():
         question = get_next_question(session.get('userid'))
         if question:
             session['questionid'] = question.QuestionID
-        print(question)
+            session['flipped'] = randint(0, 1)==1
+
         return render_template('play.html', questions=[question])
 
     elif request.method == 'POST':
