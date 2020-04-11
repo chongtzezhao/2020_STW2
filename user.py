@@ -35,7 +35,10 @@ from app import User, db
 from hash_algo import hash_password, verify_password
 
 def check_user_password(userid, password):
-    user = User.query.filter_by(UserID=userid).first()
+    try:
+        user = User.query.filter_by(UserID=userid).first()
+    except OperationalError:
+        user = User.query.filter_by(UserID=userid).first()
     if user:
         if verify_password(user.Password, password):
             return 1
@@ -46,7 +49,10 @@ def check_user_password(userid, password):
 
 
 def get_name(userid):
-    user = User.query.filter_by(UserID=userid).first()
+    try:
+        user = User.query.filter_by(UserID=userid).first()
+    except OperationalError:
+        user = User.query.filter_by(UserID=userid).first()
     if user:
         return user.Name
     else:
@@ -56,8 +62,15 @@ def get_name(userid):
 def create_user(userid, user_name, password, email):
     hashed_password = hash_password(password)
     new_user = User(userid, user_name, hashed_password, email)
-    db.session.add(new_user)
-    db.session.commit()
+    try:
+        db.session.add(new_user)
+    except OperationalError:
+        db.session.add(new_user)
+    
+    try:
+        db.session.commit()
+    except OperationalError:
+        db.session.commit()
 
 
 

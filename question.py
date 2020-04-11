@@ -1,7 +1,11 @@
 from app import db, Question, CountAttempt, Attempt
 
 def get_questions():
-    return Question.query.all()
+    try:
+        return Question.query.all()
+    except OperationalError:
+        return Question.query.all()
+
 
 
 def check_answers(user_answers):  # depracated
@@ -34,14 +38,20 @@ def get_next_question(userid):
 def check_one_answer(questionid, user_answer):
     try:
         question = Question.query.filter_by(QuestionID=questionid).first()
+    except OperationalError:
+        question = Question.query.filter_by(QuestionID=questionid).first()
+    finally:
         return question.Answer==int(user_answer), question
-    except error:
-        return error, None
 
 
 def update_attempts(userid, questionid, user_answer):
-    count_attempt_record = CountAttempt.query.filter_by(
-        UserID=userid, QuestionID=questionid
+    try:
+        count_attempt_record = CountAttempt.query.filter_by(
+            UserID=userid, QuestionID=questionid
+            ).first()
+    except OperationalError:
+        count_attempt_record = CountAttempt.query.filter_by(
+            UserID=userid, QuestionID=questionid
         ).first()
     if count_attempt_record:
         if count_attempt_record.Correct:
