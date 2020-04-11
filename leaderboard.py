@@ -5,7 +5,7 @@ def get_rankings():
         questions = Question.query.all()
     except OperationalError:
         questions = Question.query.all()
-    users = User.query.all()\
+    users = User.query.all()
     rankings = []
     for user in users:
         user_total_correct = 0
