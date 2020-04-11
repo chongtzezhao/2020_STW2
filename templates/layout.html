@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+		<title>MCQ App</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href=
+		"https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+		<link rel="stylesheet" href=
+		"https://indestructibletype.com/fonts/Jost.css">
+		<link rel="stylesheet" type="text/css" href=
+		"{{ url_for('static', filename='css/layout.css') }}">
+		<link rel="icon" type="image/png" href=
+		"{{ url_for('static', filename='img/note.png') }}">
+		<link rel="stylesheet" type="text/css" href=
+		"{{ url_for('static', filename='css/main.css') }}">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+		{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+		{% block nav %}
+		<nav class="navbar">
+			<div class="navbar-brand">
+				<span id="nav-title" class="navbar-item">
+					<img id="nav-icon" src="
+					{{ url_for('static', filename='img/note.png') }}"
+					height="24" width="24" alt="logo">
+					Nail Your MCQs!
+				</span>
+				<span class="navbar-burger burger" data-target="navMenu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</div>
+			<div id="navMenu" class="navbar-menu">
+				<div class="navbar-start">
+					<a href="/" class="navbar-item is-inverted">
+						Home
+					</a>
+					
+					{% if session['logged_in'] %}
+					<a href="/leaderboard" class="navbar-item">
+						Leaderboard
+					</a>
+					<a href="/play" class="navbar-item">
+						Play
+					</a>
+					<!-- <div class="navbar-item has-dropdown is-hoverable">
+						<a class="navbar-link">
+							Bookings
+						</a>
+						<div class="navbar-dropdown">
+							<a href="/booking-consult" class="navbar-item">
+								Book
+							</a>
+							<a href="/create" class="navbar-item">
+								Create
+							</a>
+                            <a href="/my-events" class="navbar-item">
+								Manage
+							</a>
+						</div>
+					</div> -->
+					{% endif %}
+				</div>
+				<div class="navbar-end">
+					{% if session['logged_in'] %}
+					<a href="/logout" class="navbar-item">
+						Log out
+					</a>
+					<!-- <div class="navbar-item level">
+						<div class="level-left has-text-centered">
+							<div class="has-text-weight-bold level-item">
+								<div class="expand">
+									<div>
+										{{ session['userid'] }}
+									</div>
+									<br>
+									<div class="title is-6">
+										stuff<br>
+										stuff
+										stuff
+									</div>
+								</div>
+							</div>
+							<div class="level-item">
+								<figure class="image">
+									<img id="user-icon" class="is-rounded" src={{ picture }}>
+								</figure>
+							</div>
+						</div>
+					</div> -->
+					{% else %}
+					<a href="/login" class="navbar-item">
+						Log in
+					</a>
+					{% endif %}
+				</div>
+			</div>
+		</nav>
+		{% endblock %}
+		{% block content %}{% endblock %}
+		{% block footer %}
+		<footer class="footer">
+			<h1 class="title is-5 has-text-centered">Computing@DHS · 2020Y6</h1>
+			<div class="has-text-centered">
+				<a href="https://github.com/thepoppycat/2020_STW2">
+					<img id="github" src="{{ url_for('static', filename='img/github.png') }}" />
+				</a>
+			</div>
+		</footer>
+		{% endblock %}
+        {% endblock %}
+    	<script src="{{ url_for('static', filename='js/layout.js') }}"></script>
+    </body>
+</html>

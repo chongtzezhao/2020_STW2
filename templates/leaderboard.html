@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        {% block nav %}{{ super() }}{% endblock %}
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <h1 class="title is-2">
+                Leaderboard
+            </h1>
+            <div class="message">
+                <h1 class="title is-4">
+                    How is this done?
+                </h1>
+                <h2 class="title is-5">
+                    Because we value practice :)  , total score is calculated by (questions correct/num attempts)+ (0.1*practice attempts)
+                </h2>
+            </div>
+            <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <th>Ranking</th>
+                            <th>Player name</th>
+                            <th>Questions correct</th>
+                            <th>Number of attempts</th>
+                            <th>Number of practices</th>
+                            <th>Total score</th>
+                        </tr>
+                        {% for i in range(rankings|length) %}
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{rankings[i][1]}}</td>
+                            <td>{{rankings[i][2]}}</td>
+                            <td>{{rankings[i][3]}}</td>
+                            <td>{{rankings[i][4]}}</td>
+                            <td>{{rankings[i][0]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+</section>
+{% endblock %}

@@ -1,0 +1,119 @@
+/* The container */
+.radio {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: justify;
+}
+
+/* Hide the browser's default radio button */
+.radio input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio input[type='radio']:checked ~ .checkmark {
+  background-color:  hsl(171, 100%, 41%);
+}
+
+/* On mouse-over, add a grey background color */
+.radio:hover input[type='radio'] ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio input[type='radio']:checked ~ .checkmark {
+  background-color: hsl(171, 100%, 41%);
+}
+
+.radio input[type='radio'].wrong:checked ~ .checkmark {
+  background-color: hsl(0, 74%, 54%);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+.question{
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 0px 20px 0px 20px;
+    overflow:hidden;
+    width: 85vw;
+    max-width: 800px;
+    margin: 30px auto;
+    opacity: 0.5;
+    transition: opacity 1s, padding 1s;
+}
+
+.question:hover{
+    opacity: 1;
+    padding: 20px;
+}
+
+.option{
+    font-size: 1.5em;
+}
+
+.option:hover{
+    font-size: 1.55em;
+    font-style: bold;
+}
+
+.question-text{
+    font-style: bold;
+    font-size: 2em;
+    text-align: justify;
+    line-height: 1.2em;
+}
+
+.review{
+  background-color: green;
+  color: rgb(230, 51, 51);
+  width: 80vw;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 20px;
+  margin: auto;
+}
+
+.review h1{
+  color: white;
+}

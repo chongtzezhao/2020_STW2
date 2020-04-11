@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<section class="hero is-fullheight">
+    {% block nav %}{{ super() }}{% endblock %}
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <h1 class="title is-1">
+                MCQ Tester
+            </h1>
+            <h2 class="subtitle is-4">
+                Welcome, {{session['user_name']}}!
+            </h2>
+            <div class="field has-text-centered">
+                <a class="button is-primary is-large is-outlined" href="/leaderboard">
+                    Leaderboard
+                </a>
+            </div>
+            <div class="field has-text-centered">
+                <a class="button is-primary is-large is-outlined" href="/play">Play</a>
+            </div>
+            
+        </div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+</section>
+{% endblock %}

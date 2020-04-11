@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/play.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        {% block nav %}{{ super() }}{% endblock %}
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <div class="review">
+                <h1 class="title is-2">
+                    {% if score %}
+                    Correct!
+                    {% else %}
+                    Wrong :(
+                    {% endif %}
+                </h1>
+            </div>
+            {% for i in range(questions | length) %}
+            <div class="question">
+                <h1 class="question-text">{{questions[i].QuestionText}}</h1>
+                <br>
+                <div class="control">
+                    <label class="radio option">
+                        {{questions[i].Option1}}
+                        {% if questions[i].Answer == 1 %}
+                        <input type="radio" checked disabled>
+                        {% elif results[questions[i].QuestionID] == False %}
+                        <input type="radio" class="wrong" checked disabled>
+                        {% else %}
+                        <input type="radio" disabled>
+                        {% endif %}
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="control">
+                    <label class="radio option">
+                        {{questions[i].Option2}}
+                        {% if questions[i].Answer == 2 %}
+                        <input type="radio" checked disabled>
+                        {% elif results[questions[i].QuestionID] == False %}
+                        <input type="radio" class="wrong" checked disabled>
+                        {% else %}
+                        <input type="radio" disabled>
+                        {% endif %}
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            
+            {% endfor %}
+            <div class="field has-text-centered">
+                <a class="button is-link is-large is-inverted is-outlined is-rounded" href="/play">
+                    Next question
+                </a>
+            </div>
+            <div class="field has-text-centered">
+                <a class="button is-primary is-large is-outlined" href="/leaderboard">
+                    View your ranking here
+                </a>
+            </div>
+        </div class="quiz"></div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+    <script>
+        var score = "{{score}}";
+        if (score == "0"){
+            var x = $('.review');
+            x.css("background-color", "rgb(230, 51, 51)")
+        }
+    </script>
+</section>
+{% endblock %}

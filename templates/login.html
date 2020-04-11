@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+
+{% if session['logged_in'] %}
+You're logged in already!
+<meta http-equiv="refresh" content="2;url=/" />
+{% else %}
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        {% block nav %}{{ super() }}{% endblock %}
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <h1 class="title is-1">
+                Computing Royale
+            </h1>
+            <h2 class="subtitle is-5">
+                Save the World by logging in
+            </h2>
+            {% if res %}
+                <h2 class="subtitle is-6" style="color: red">Wrong userID or password</h2>
+            {% endif %}
+            <form action="/login" method="post">
+                <div class="form">
+                    <div class="field">
+                        <div class="control">
+                            <label class="label">UserID: </label>
+                            <input type="text" class="input is-info is-rounded" value="" pattern="{,255}" placeholder="user ID" name="userid" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <label class="label">Enter password: </label>
+                            <input type="password" class="input is-info is-rounded" value="" pattern="{8,255}" placeholder="password" name="password" required>
+                        </div>
+                    </div>
+                    <span class="field">
+                        <span class="control">
+                            <a href='/signup' class="button is-link is-inverted is-outlined is-rounded is-pulled-left ">Create Account</a>
+                        </span>
+                    </span>
+                    <span class="field">
+                        <span class="control">
+                            <input type="submit" value="Log in" class="button is-link is-inverted is-outlined is-rounded is-pulled-right">
+                        </span>
+                    </span>
+                
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+</section>
+{% endif %}
+{% endblock %}

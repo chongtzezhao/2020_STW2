@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<meta http-equiv="refresh" content="2;url=/">
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        {% block nav %}{{ super() }}{% endblock %}
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <h1 class="title is-1">
+                MCQ Tester
+            </h1>
+            <h2 class="subtitle is-3">
+                The page you're looking for cannot be found :(
+            </h2>
+        </div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+</section>
+{% endblock %}

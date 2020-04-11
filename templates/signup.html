@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block body %}
+<section class="hero is-fullheight">
+    <div class="hero-head">
+        {% block nav %}{{ super() }}{% endblock %}
+    </div>
+    <div class="hero-body">
+        <div class="container is-fluid has-text-centered">
+            <h1 class="title is-1">
+                Computing Royale
+            </h1>
+            <h2 class="subtitle is-5">
+                Save the World by creating an account
+            </h2>
+            {% if res %}
+                <h2 class="subtitle is-6" style="color: red">An account with the same userID has already been created</h2>
+            {% endif %}
+            <form action="/signup" method="post">
+                <div class="form">
+                    <div class="field">
+                        <div class="control">
+                            {{ form.user_name.label(class="label") }}
+                            {{ form.user_name(class="input is-info is-rounded", title="255 characters max", pattern="{,255}", placeholder="Name")}}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.userid.label(class="label") }}
+                            {{ form.userid(class="input is-info is-rounded", title="255 characters max", pattern="{,255}", placeholder="eg. jiiteh") }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.password.label(class="label") }}
+                            {{ form.password(class="input is-info is-rounded", title="8 characters minimum, 40 max", pattern="{8,255}", placeholder="eg. LrW3f8osdh")}}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.confirm.label(class="label") }}
+                            {{ form.confirm(class="input is-info is-rounded", title="Passwords do not match", pattern="{8,255}", placeholder="eg. LrW3f8osdh")}}
+                        </div>
+                    </div>
+                    <h2 id="confirm-message"></h2>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.email.label(class="label") }}
+                            {{ form.email(class="input is-info is-rounded", title="255 characters max", pattern="{,255}", placeholder="eg. yourname@example.com") }}
+                        </div>
+                    </div>
+                    <div class="form">
+                        {{form.recaptcha}}
+                    </div>
+                    <span class="field is-pulled-left">
+                        <span class="control">
+                            <label class="checkbox">
+                                <a class="subtitle is-5">Log me in!</a>
+                                <input type="checkbox" name="log_in">
+                            </label>
+                        </span>
+                    </span>
+                    <span class="field is-pulled-right">
+                        <span class="control">
+                            <input type="submit" value="Create" class="button is-link is-inverted is-outlined is-rounded" id="submit">
+                        </span>
+                    </span>
+                
+                </div>
+            </form>
+        </div>
+    </div>
+    {% block footer %}{{ super() }}{% endblock %}
+</section>
+</script>
+<script>
+
+
+    $(function () {
+            $('form [type="password"]').keyup(function () {
+                //Store the field objects into variables ...
+                var password = $('#password');
+                var confirm = $('#confirm');
+                var message = $('#confirm-message');
+                var submit = $('#submit')
+
+                //Set the colors we will be using ...
+                var good_color = "#66cc66";
+                var bad_color = "#ff6666";
+
+                if (password.val() == confirm.val()) {
+                    confirm.css('background-color', good_color);
+                    message.css('color', good_color).html("Passwords Match!");
+                    submit.prop('disabled', false);
+                } else {
+                    confirm.css('background-color', bad_color);
+                    message.css('color', bad_color).html("Passwords Do Not Match!");
+                    submit.prop('disabled', true);
+                }
+            });
+        });
+
+</script>
+{% endblock %}
