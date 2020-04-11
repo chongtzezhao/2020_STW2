@@ -2,12 +2,14 @@
 
 I tried to build this around the database requirements and stuck to it as close as possible
 
+The ones in square brackets are additional fields.
+
 DB schemas
 ```
-User(UserID, Name, _Password, Email, Admin_ )
+User(UserID, Name, [Password, Email, Admin] )
 Question(QuestionID, Option1, Option2, Answer)
 Attempt(AttemptID, UserID, QuestionID, Response)
-CountAttempt(UserID, QuestionID, NumAttempts, _Correct, PracticeAttempts_ )
+CountAttempt(UserID, QuestionID, NumAttempts, [Correct, PracticeAttempts] )
 ```
 
 ## Features
