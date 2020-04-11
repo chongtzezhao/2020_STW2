@@ -3,7 +3,7 @@ import os
 
 # user-defined imports
 from app import app, SignUpForm, mail
-from user import check_user_password, create_user, get_name, addView
+from user import check_user_password, create_user, get_name
 from question import check_one_answer, get_next_question, update_attempts
 from leaderboard import get_rankings
 # from question import get_questions, check_answers  # deprecated
