@@ -32,7 +32,7 @@ Python, flask, flask_sqlalchemy, wtforms
 
 1. Python/Flask has many third-party libraries out there for security, database management, email etc. Use them.
 2. Third-party CSS is good for building websites quickly, though you may have to sacrifice on flexibility.
-3. 
+3. (IMPORTANT!!) Always spend some time planning how the entire website would work, and what databases/technologies are needed. Don't end up spending 4 entire days doing what could be done in 2 🙃
 
 
 ## Future Versions
