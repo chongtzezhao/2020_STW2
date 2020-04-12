@@ -71,11 +71,21 @@ input[type='checkbox']:checked {
   background-image: url('../static/img/computing-bg.png');
  }
 
- .table{
+ table{
    border-radius: 20px;
-   overflow: hidden;
    width: 90vw;
+   overflow: hidden; 
  }
+
+td{
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  word-wrap: break-word;
+}
+
+.table-container{
+  overflow-x: scroll
+}
 
  .message{
    width: 80vw;
